@@ -70,7 +70,14 @@ echo "Installing Lua version: ${TORCH_LUA_VERSION}"
 mkdir -p install
 mkdir -p build
 cd build
-cmake .. -DCMAKE_INSTALL_PREFIX="${PREFIX}" -DCMAKE_BUILD_TYPE=Release -DWITH_${TORCH_LUA_VERSION}=ON 2>&1 >>$PREFIX/install.log || exit 1
+
+
+export CC="/usr/bin/riscv64-linux-gnu-gcc"
+export CXX="riscv64-linux-gnu-g++"
+
+TOOLCHAIN_FILE="${THIS_DIR}/riscv64-toolchain.cmake"
+
+cmake .. -DCMAKE_TOOLCHAIN_FILE="${TOOLCHAIN_FILE}" -DHAVE_DLOPEN=1 -DCMAKE_HAVE_DLOPEN=1 -DLUA_USE_DLOPEN=ON -DCMAKE_INSTALL_PREFIX="${PREFIX}" -DCMAKE_BUILD_TYPE=Release -DWITH_${TORCH_LUA_VERSION}=ON 2>&1 >>$PREFIX/install.log || exit 1
 (make 2>&1 >>$PREFIX/install.log  || exit 1) && (make install 2>&1 >>$PREFIX/install.log || exit 1)
 cd ..
 
