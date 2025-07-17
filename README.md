@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/torch/distro.svg?branch=master)](https://travis-ci.org/torch/distro)
 
+> For the cross-compilation to work with submodules, clone this repo using the `--recursive` option and then apply the patches in the file `toolchain-changes.patch`
+
 #### NOTE: Torch is not actively developed anymore and is in maintenance mode.
 
 Self-contained Torch installation
